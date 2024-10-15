@@ -41,7 +41,8 @@ func (r *weiboMsgRepository) GetWeiboMsgList(ctx context.Context, accountId int,
         db.Where("pubtime < ?", endTime.Format("2006-01-02 15:04:05"))
     }
     if sortField != "" {
-        db.Order(fmt.Sprintf("%s %s", sortField, sortOrder))
+        //加上转义，防止字段是mysql关键词的情况，比如like
+        db.Order(fmt.Sprintf("`%s` %s", sortField, sortOrder))
     }
     var total int64
     db.Count(&total)
