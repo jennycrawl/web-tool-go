@@ -34,7 +34,7 @@ func (r *weiboAccountRepository) GetWeiboAccountList(ctx context.Context) (*[]mo
     db := r.DB(ctx)
     db = db.Where("status = ?", model.WeiboAccountStatusValid)
     if err := db.Find(&weiboAccountList).Error; err != nil {
-        r.logger.Debug(err.Error())
+        r.logger.Error(err.Error())
         if errors.Is(err, gorm.ErrRecordNotFound) {
             return nil, v1.ErrNotFound
         }

@@ -49,7 +49,7 @@ func (r *weiboMsgRepository) GetWeiboMsgList(ctx context.Context, accountId int,
         db.Offset((page - 1) * perPage).Limit(perPage)
     }
     if err := db.Find(&weiboMsgList).Error; err != nil {
-        r.logger.Debug(err.Error())
+        r.logger.Error(err.Error())
         if errors.Is(err, gorm.ErrRecordNotFound) {
             return nil, v1.ErrNotFound
         }

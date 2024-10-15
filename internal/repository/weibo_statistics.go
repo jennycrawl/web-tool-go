@@ -57,7 +57,7 @@ func (r *weiboStatisticsRepository) GetWeiboStatisticsList(ctx context.Context, 
     db.Group("weibo_feed.account_id").Order("weibo_feed.id asc")
 
     if err := db.Scan(&weiboStatisticsList).Error; err != nil {
-        r.logger.Debug(err.Error())
+        r.logger.Error(err.Error())
         if errors.Is(err, gorm.ErrRecordNotFound) {
             return nil, v1.ErrNotFound
         }
