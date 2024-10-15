@@ -1,0 +1,644 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample server celler server.",
+        "title": "Nunu Example API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "host": "localhost:8000",
+    "paths": {
+        "/login": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户模块"
+                ],
+                "summary": "账号登录",
+                "parameters": [
+                    {
+                        "description": "params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web-tool-go_api_v1.LoginRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web-tool-go_api_v1.LoginResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "description": "目前只支持邮箱登录",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户模块"
+                ],
+                "summary": "用户注册",
+                "parameters": [
+                    {
+                        "description": "params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web-tool-go_api_v1.RegisterRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web-tool-go_api_v1.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/user": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户模块"
+                ],
+                "summary": "获取用户信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web-tool-go_api_v1.GetProfileResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户模块"
+                ],
+                "summary": "修改用户信息",
+                "parameters": [
+                    {
+                        "description": "params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web-tool-go_api_v1.UpdateProfileRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web-tool-go_api_v1.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/weibo/account": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "微博模块"
+                ],
+                "summary": "创建微博号",
+                "parameters": [
+                    {
+                        "description": "params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web-tool-go_api_v1.CreateWeiboAccountRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web-tool-go_api_v1.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/weibo/account/list": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "微博模块"
+                ],
+                "summary": "获取微博号列表",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/web-tool-go_api_v1.WeiboAccount"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/weibo/account/{id}": {
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "微博模块"
+                ],
+                "summary": "删除微博号",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web-tool-go_api_v1.Response"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "微博模块"
+                ],
+                "summary": "修改微博号",
+                "parameters": [
+                    {
+                        "description": "params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/web-tool-go_api_v1.UpdateWeiboAccountRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web-tool-go_api_v1.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/weibo/msg": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "微博模块"
+                ],
+                "summary": "获取微博文章列表",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/web-tool-go_api_v1.GetWeiboMsgListResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/weibo/statistics": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "微博模块"
+                ],
+                "summary": "获取微博统计信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/web-tool-go_api_v1.WeiboStatistics"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "web-tool-go_api_v1.CreateWeiboAccountRequest": {
+            "type": "object",
+            "required": [
+                "name",
+                "uid"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "my name"
+                },
+                "uid": {
+                    "type": "string",
+                    "example": "123456"
+                }
+            }
+        },
+        "web-tool-go_api_v1.GetProfileResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/web-tool-go_api_v1.GetProfileResponseData"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "web-tool-go_api_v1.GetProfileResponseData": {
+            "type": "object",
+            "properties": {
+                "nickname": {
+                    "type": "string",
+                    "example": "alan"
+                },
+                "userId": {
+                    "type": "string"
+                }
+            }
+        },
+        "web-tool-go_api_v1.GetWeiboMsgListResponseData": {
+            "type": "object",
+            "properties": {
+                "current_page": {
+                    "type": "integer"
+                },
+                "msg_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/web-tool-go_api_v1.WeiboMsg"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                },
+                "total_page": {
+                    "type": "integer"
+                }
+            }
+        },
+        "web-tool-go_api_v1.LoginRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "1234@gmail.com"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "123456"
+                }
+            }
+        },
+        "web-tool-go_api_v1.LoginResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/web-tool-go_api_v1.LoginResponseData"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "web-tool-go_api_v1.LoginResponseData": {
+            "type": "object",
+            "properties": {
+                "accessToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "web-tool-go_api_v1.RegisterRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "1234@gmail.com"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "123456"
+                }
+            }
+        },
+        "web-tool-go_api_v1.Response": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {},
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "web-tool-go_api_v1.UpdateProfileRequest": {
+            "type": "object",
+            "required": [
+                "email"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "1234@gmail.com"
+                },
+                "nickname": {
+                    "type": "string",
+                    "example": "alan"
+                }
+            }
+        },
+        "web-tool-go_api_v1.UpdateWeiboAccountRequest": {
+            "type": "object",
+            "required": [
+                "name",
+                "uid"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "my name"
+                },
+                "uid": {
+                    "type": "string",
+                    "example": "123456"
+                }
+            }
+        },
+        "web-tool-go_api_v1.WeiboAccount": {
+            "type": "object",
+            "properties": {
+                "attention": {
+                    "type": "integer"
+                },
+                "crawl_time": {
+                    "type": "string"
+                },
+                "create_time": {
+                    "type": "string"
+                },
+                "fans": {
+                    "type": "integer"
+                },
+                "feed": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "uid": {
+                    "type": "string"
+                },
+                "update_time": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "web-tool-go_api_v1.WeiboMsg": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "type": "integer"
+                },
+                "account_name": {
+                    "type": "string"
+                },
+                "comment": {
+                    "type": "integer"
+                },
+                "crawl_time": {
+                    "type": "string"
+                },
+                "forward": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "like": {
+                    "type": "integer"
+                },
+                "mid": {
+                    "type": "string"
+                },
+                "pubtime": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "web-tool-go_api_v1.WeiboStatistics": {
+            "type": "object",
+            "properties": {
+                "attention": {
+                    "type": "integer"
+                },
+                "comment_avg": {
+                    "description": "评论平均数",
+                    "type": "string"
+                },
+                "comment_max": {
+                    "description": "评论最大值",
+                    "type": "integer"
+                },
+                "comment_min": {
+                    "description": "评论最小值",
+                    "type": "integer"
+                },
+                "comment_sum": {
+                    "description": "评论总数",
+                    "type": "string"
+                },
+                "count": {
+                    "type": "integer"
+                },
+                "crawl_time": {
+                    "type": "string"
+                },
+                "fans": {
+                    "type": "integer"
+                },
+                "feed": {
+                    "type": "integer"
+                },
+                "forward_avg": {
+                    "description": "转发平均数",
+                    "type": "string"
+                },
+                "forward_max": {
+                    "description": "转发最大值",
+                    "type": "integer"
+                },
+                "forward_min": {
+                    "description": "转发最小值",
+                    "type": "integer"
+                },
+                "forward_sum": {
+                    "description": "转发总数",
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "like_avg": {
+                    "description": "点赞平均数",
+                    "type": "string"
+                },
+                "like_max": {
+                    "description": "点赞最大值",
+                    "type": "integer"
+                },
+                "like_min": {
+                    "description": "点赞最小值",
+                    "type": "integer"
+                },
+                "like_sum": {
+                    "description": "点赞总数",
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

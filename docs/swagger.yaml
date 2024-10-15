@@ -1,0 +1,421 @@
+definitions:
+  web-tool-go_api_v1.CreateWeiboAccountRequest:
+    properties:
+      name:
+        example: my name
+        type: string
+      uid:
+        example: "123456"
+        type: string
+    required:
+    - name
+    - uid
+    type: object
+  web-tool-go_api_v1.GetProfileResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/web-tool-go_api_v1.GetProfileResponseData'
+      message:
+        type: string
+    type: object
+  web-tool-go_api_v1.GetProfileResponseData:
+    properties:
+      nickname:
+        example: alan
+        type: string
+      userId:
+        type: string
+    type: object
+  web-tool-go_api_v1.GetWeiboMsgListResponseData:
+    properties:
+      current_page:
+        type: integer
+      msg_list:
+        items:
+          $ref: '#/definitions/web-tool-go_api_v1.WeiboMsg'
+        type: array
+      total:
+        type: integer
+      total_page:
+        type: integer
+    type: object
+  web-tool-go_api_v1.LoginRequest:
+    properties:
+      email:
+        example: 1234@gmail.com
+        type: string
+      password:
+        example: "123456"
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  web-tool-go_api_v1.LoginResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/web-tool-go_api_v1.LoginResponseData'
+      message:
+        type: string
+    type: object
+  web-tool-go_api_v1.LoginResponseData:
+    properties:
+      accessToken:
+        type: string
+    type: object
+  web-tool-go_api_v1.RegisterRequest:
+    properties:
+      email:
+        example: 1234@gmail.com
+        type: string
+      password:
+        example: "123456"
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  web-tool-go_api_v1.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+    type: object
+  web-tool-go_api_v1.UpdateProfileRequest:
+    properties:
+      email:
+        example: 1234@gmail.com
+        type: string
+      nickname:
+        example: alan
+        type: string
+    required:
+    - email
+    type: object
+  web-tool-go_api_v1.UpdateWeiboAccountRequest:
+    properties:
+      name:
+        example: my name
+        type: string
+      uid:
+        example: "123456"
+        type: string
+    required:
+    - name
+    - uid
+    type: object
+  web-tool-go_api_v1.WeiboAccount:
+    properties:
+      attention:
+        type: integer
+      crawl_time:
+        type: string
+      create_time:
+        type: string
+      fans:
+        type: integer
+      feed:
+        type: integer
+      id:
+        type: integer
+      name:
+        type: string
+      status:
+        type: integer
+      uid:
+        type: string
+      update_time:
+        type: string
+      url:
+        type: string
+    type: object
+  web-tool-go_api_v1.WeiboMsg:
+    properties:
+      account_id:
+        type: integer
+      account_name:
+        type: string
+      comment:
+        type: integer
+      crawl_time:
+        type: string
+      forward:
+        type: integer
+      id:
+        type: integer
+      like:
+        type: integer
+      mid:
+        type: string
+      pubtime:
+        type: string
+      url:
+        type: string
+    type: object
+  web-tool-go_api_v1.WeiboStatistics:
+    properties:
+      attention:
+        type: integer
+      comment_avg:
+        description: 评论平均数
+        type: string
+      comment_max:
+        description: 评论最大值
+        type: integer
+      comment_min:
+        description: 评论最小值
+        type: integer
+      comment_sum:
+        description: 评论总数
+        type: string
+      count:
+        type: integer
+      crawl_time:
+        type: string
+      fans:
+        type: integer
+      feed:
+        type: integer
+      forward_avg:
+        description: 转发平均数
+        type: string
+      forward_max:
+        description: 转发最大值
+        type: integer
+      forward_min:
+        description: 转发最小值
+        type: integer
+      forward_sum:
+        description: 转发总数
+        type: string
+      id:
+        type: integer
+      like_avg:
+        description: 点赞平均数
+        type: string
+      like_max:
+        description: 点赞最大值
+        type: integer
+      like_min:
+        description: 点赞最小值
+        type: integer
+      like_sum:
+        description: 点赞总数
+        type: string
+      name:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Nunu Example API
+  version: 1.0.0
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/web-tool-go_api_v1.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web-tool-go_api_v1.LoginResponse'
+      summary: 账号登录
+      tags:
+      - 用户模块
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: 目前只支持邮箱登录
+      parameters:
+      - description: params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/web-tool-go_api_v1.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web-tool-go_api_v1.Response'
+      summary: 用户注册
+      tags:
+      - 用户模块
+  /user:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web-tool-go_api_v1.GetProfileResponse'
+      security:
+      - Bearer: []
+      summary: 获取用户信息
+      tags:
+      - 用户模块
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/web-tool-go_api_v1.UpdateProfileRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web-tool-go_api_v1.Response'
+      security:
+      - Bearer: []
+      summary: 修改用户信息
+      tags:
+      - 用户模块
+  /weibo/account:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/web-tool-go_api_v1.CreateWeiboAccountRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web-tool-go_api_v1.Response'
+      summary: 创建微博号
+      tags:
+      - 微博模块
+  /weibo/account/{id}:
+    delete:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web-tool-go_api_v1.Response'
+      summary: 删除微博号
+      tags:
+      - 微博模块
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/web-tool-go_api_v1.UpdateWeiboAccountRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web-tool-go_api_v1.Response'
+      summary: 修改微博号
+      tags:
+      - 微博模块
+  /weibo/account/list:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/web-tool-go_api_v1.WeiboAccount'
+            type: array
+      security:
+      - Bearer: []
+      summary: 获取微博号列表
+      tags:
+      - 微博模块
+  /weibo/msg:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web-tool-go_api_v1.GetWeiboMsgListResponseData'
+      security:
+      - Bearer: []
+      summary: 获取微博文章列表
+      tags:
+      - 微博模块
+  /weibo/statistics:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/web-tool-go_api_v1.WeiboStatistics'
+            type: array
+      security:
+      - Bearer: []
+      summary: 获取微博统计信息
+      tags:
+      - 微博模块
+securityDefinitions:
+  Bearer:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
