@@ -1,0 +1,48 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # 支持手动触发
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: prod
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.23'  # 指定Go版本，依据实际使用的版本进行更新
+
+      - name: Install dependencies
+        run: go mod tidy
+
+      - name: Generate config/prod.yml
+        run: |
+          cp config/template.yml config/prod.yml
+          sed -i 's|my_app_key|'"${{ secrets.MY_APP_KEY }}"'|g' config/prod.yml
+          sed -i 's|my_app_security|'"${{ secrets.MY_APP_SECURITY }}"'|g' config/prod.yml
+          sed -i 's|my_jwt_key|'"${{ secrets.MY_JWT_KEY }}"'|g' config/prod.yml
+          sed -i 's|my_db_driver|'"${{ variables.MY_DB_DRIVER }}"'|g' config/prod.yml
+          sed -i 's|my_db_dsn|'"${{ secrets.MY_DB_DSN }}"'|g' config/prod.yml
+
+      - name: Build
+        run: go build -ldflags="-s -w" -o ./bin/server ./cmd/server
+
+      - name: Deploy
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+          KEY: ${{ secrets.DEPLOY_KEY }}
+          TARGET: ${{ secrets.DEPLOY_TARGET }}
+        run: |
+          echo "$KEY" > key.pem
+          chmod 600 key.pem
+          rsync --delete-after -avz -e --include='bin/***' --include='config/***' --include='bin/***' --include='storage/***' --exclude='storage/nunu-test.db' "ssh -o StrictHostKeyChecking=no -i key.pem" ./ $USER@$HOST:$TARGET  # 修改目标路径
+          ssh -o StrictHostKeyChecking=no -i key.pem "sudo supervisorctl restart jennycrawl-web-tool-go"
