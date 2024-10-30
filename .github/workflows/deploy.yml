@@ -44,5 +44,5 @@ jobs:
         run: |
           echo "$KEY" > key.pem
           chmod 600 key.pem
-          rsync --delete-after -avz -e --include='bin' --include='config' --include='storage' --exclude='storage/nunu-test.db' "ssh -o StrictHostKeyChecking=no -i key.pem" ./ $USER@$HOST:$TARGET  # 修改目标路径
+          rsync --delete-after -avz -e --include='./bin' --include='./config' --include='./storage' --exclude='./storage/nunu-test.db' "ssh -o StrictHostKeyChecking=no -i key.pem" ./ $USER@$HOST:$TARGET  # 修改目标路径
           ssh -o StrictHostKeyChecking=no -i key.pem "sudo supervisorctl restart jennycrawl-web-tool-go"
