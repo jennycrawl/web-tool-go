@@ -31,7 +31,7 @@ jobs:
           sed -i 's|my_jwt_key|'"${{ secrets.JWT_KEY }}"'|g' config/prod.yml
           sed -i 's|db_driver|'"${{ vars.DB_DRIVER }}"'|g' config/prod.yml
           sed -i 's|db_user|'"${{ secrets.DB_USER }}"'|g' config/prod.yml
-          sed -i 's|db_password|'"${{ secrets.DB_PASSWORD }}"'#g' config/prod.yml
+          sed -i 's|db_password|'"${{ secrets.DB_PASSWORD }}"'|g' config/prod.yml
           sed -i 's|db_host|'"${{ secrets.DB_HOST }}"'|g' config/prod.yml
           sed -i 's|db_port|'"${{ secrets.DB_PORT }}"'|g' config/prod.yml
           sed -i 's|db_name|'"${{ secrets.DB_NAME }}"'|g' config/prod.yml
