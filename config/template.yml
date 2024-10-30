@@ -15,8 +15,8 @@ data:
 #      driver: sqlite
 #      dsn: storage/nunu-test.db?_busy_timeout=5000
     user:
-      driver: my_db_driver
-      dsn: my_db_dsn
+      driver: db_driver
+      dsn: db_user:db_password@tcp(db_host:db_port)/db_name?charset=utf8mb4&parseTime=True&loc=Local
   #    user:
   #      driver: postgres
   #      dsn: host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai
