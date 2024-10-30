@@ -33,7 +33,9 @@ jobs:
           sed -i 's|my_db_dsn|'"${{ secrets.MY_DB_DSN }}"'|g' config/prod.yml
 
       - name: Build
-        run: go build -ldflags="-s -w" -o ./bin/server ./cmd/server
+        run: |
+          mkdir -p bin
+          go build -ldflags="-s -w" -o ./bin/server ./cmd/server
 
       - name: Deploy
         env:
