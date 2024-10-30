@@ -30,7 +30,7 @@ jobs:
           sed -i 's|my_app_security|'"${{ secrets.MY_APP_SECURITY }}"'|g' config/prod.yml
           sed -i 's|my_jwt_key|'"${{ secrets.MY_JWT_KEY }}"'|g' config/prod.yml
           sed -i 's|my_db_driver|'"${{ vars.MY_DB_DRIVER }}"'|g' config/prod.yml
-          sed -i 's#my_db_dsn#'"${{ secrets.MY_DB_DSN }}"'|g' config/prod.yml  #用#处理特殊字符
+          sed -i 's#my_db_dsn#'"${{ secrets.MY_DB_DSN }}"'#g' config/prod.yml  #用#处理特殊字符
 
       - name: Build
         run: |
