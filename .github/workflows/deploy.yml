@@ -51,4 +51,4 @@ jobs:
           echo "$KEY" > key.pem
           chmod 600 key.pem
           rsync --delete-after -avz -e "ssh -o StrictHostKeyChecking=no -i key.pem" --include='bin/***' --include='config/***' --exclude='*' ./ $USER@$HOST:$TARGET  # 修改目标路径
-          # ssh -o StrictHostKeyChecking=no -i key.pem "sudo supervisorctl restart jennycrawl-web-tool-go"
+           ssh -o StrictHostKeyChecking=no -i key.pem "sudo supervisorctl restart jennycrawl-web-tool-go"
