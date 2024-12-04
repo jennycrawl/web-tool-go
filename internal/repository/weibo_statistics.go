@@ -55,7 +55,7 @@ func (r *weiboStatisticsRepository) GetWeiboStatisticsList(ctx context.Context, 
 	if !endTime.IsZero() {
 		db.Where("wf.pubtime < ?", endTime.Format("2006-01-02 15:04:05"))
 	}
-	db.Group("wa.id, wa.name, wa.attention, wa.fans, wa.feed, wa.update_time").Order("wf.id asc")
+	db.Group("wa.id, wa.name, wa.attention, wa.fans, wa.feed, wa.update_time").Order("wa.id asc")
 
 	if err := db.Scan(&weiboStatisticsList).Error; err != nil {
 		r.logger.Error(err.Error())
