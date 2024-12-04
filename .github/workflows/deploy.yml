@@ -60,4 +60,10 @@ jobs:
         run: |
           echo "$KEY" > key.pem
           chmod 600 key.pem
-          ssh -o StrictHostKeyChecking=no -i key.pem $USER@$HOST 'sudo supervisorctl restart jennycrawl-web-tool-go'
+          ssh -o StrictHostKeyChecking=no -i key.pem $USER@$HOST '
+            if sudo supervisorctl status jennycrawl-web-tool-go | grep -q "RUNNING\|STOPPED\|STARTING\|BACKOFF"; then
+              sudo supervisorctl restart jennycrawl-web-tool-go
+            else
+              sudo supervisorctl start jennycrawl-web-tool-go
+            fi
+          '
