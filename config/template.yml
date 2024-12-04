@@ -14,12 +14,12 @@ data:
 #    user:
 #      driver: sqlite
 #      dsn: storage/nunu-test.db?_busy_timeout=5000
-    user:
-      driver: db_driver
-      dsn: db_user:db_password@tcp(db_host:db_port)/db_name?charset=utf8mb4&parseTime=True&loc=Local
-  #    user:
-  #      driver: postgres
-  #      dsn: host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai
+#    user:
+#      driver: mysql
+#      dsn: db_user:db_password@tcp(db_host:db_port)/db_name?charset=utf8mb4&parseTime=True&loc=Local
+      user:
+        driver: db_driver
+        dsn: host=db_host user=db_user password=db_password dbname=db_name port=db_port sslmode=disable TimeZone=Asia/Shanghai
 #  redis:
 #    addr: 127.0.0.1:6350
 #    password: ""
