@@ -47,7 +47,7 @@ jobs:
           USER: ${{ secrets.DEPLOY_USER }}
           KEY: ${{ secrets.DEPLOY_KEY }}
           TARGET: ${{ secrets.DEPLOY_TARGET }}
-          PORT: ${{ secrets.DEPLOY_SSH_PORT }}
+          PORT: ${{ secrets.DEPLOY_PORT }}
         run: |
           echo "$KEY" > key.pem
           chmod 600 key.pem
@@ -58,7 +58,7 @@ jobs:
           HOST: ${{ secrets.DEPLOY_HOST }}
           USER: ${{ secrets.DEPLOY_USER }}
           KEY: ${{ secrets.DEPLOY_KEY }}
-          PORT: ${{ secrets.DEPLOY_SSH_PORT }}
+          PORT: ${{ secrets.DEPLOY_PORT }}
         run: |
           echo "$KEY" > key.pem
           chmod 600 key.pem
