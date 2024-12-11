@@ -47,20 +47,22 @@ jobs:
           USER: ${{ secrets.DEPLOY_USER }}
           KEY: ${{ secrets.DEPLOY_KEY }}
           TARGET: ${{ secrets.DEPLOY_TARGET }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
           echo "$KEY" > key.pem
           chmod 600 key.pem
-          rsync --delete-after -avz -e "ssh -o StrictHostKeyChecking=no -i key.pem" --include='bin/***' --include='config/***' --exclude='*' ./ $USER@$HOST:$TARGET  # 修改目标路径
+          rsync --delete-after -avz -e "ssh -p $SSH_PORT -o StrictHostKeyChecking=no -i key.pem" --include='bin/***' --include='config/***' --exclude='*' ./ $USER@$HOST:$TARGET
 
       - name: Restart service
         env:
           HOST: ${{ secrets.DEPLOY_HOST }}
           USER: ${{ secrets.DEPLOY_USER }}
           KEY: ${{ secrets.DEPLOY_KEY }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
           echo "$KEY" > key.pem
           chmod 600 key.pem
-          ssh -o StrictHostKeyChecking=no -i key.pem $USER@$HOST '
+          ssh -p $SSH_PORT -o StrictHostKeyChecking=no -i key.pem $USER@$HOST '
             if sudo supervisorctl status jennycrawl-web-tool-go | grep -q "RUNNING\|STOPPED\|STARTING\|BACKOFF"; then
               sudo supervisorctl restart jennycrawl-web-tool-go
             else
